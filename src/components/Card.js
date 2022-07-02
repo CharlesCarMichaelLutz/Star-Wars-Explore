@@ -1,10 +1,11 @@
 import React from 'react'
 
-const Card = () => {
+const Card = (props) => {
+
   return(
-    <div>
-      this is a card
-    </div>
+    <section>
+      wow
+    </section>
   )
 
 }
