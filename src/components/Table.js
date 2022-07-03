@@ -1,5 +1,4 @@
 import React from 'react'
-import  Card from './Card';
 
 const Table = (props) => {
 
@@ -19,84 +18,12 @@ const Table = (props) => {
       </thead>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td>I</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>will</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>go</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>to</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>the</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>gym</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>and</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>get</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>a good</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>workout</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{props.name}</td>
+          <td>{props.birthDate}</td>
+          <td>{props.height}</td>
+          <td>{props.mass}</td>
+          <td>{props.homeworld}</td>
+          <td>{props.species}</td>
         </tr>
       </tbody>
     </table>
