@@ -1,31 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-import axios from 'axios';
+import axios from 'axios'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
 
 const App = (props) => {
   
-  //const axios = require('axios');
+  const star_wars_API = 'https://swapi.dev/api/people/'
+  const [displayPeople, setDisplayPeople] = useState([])
 
-  //const [displayPeople, setDisplayPeople] = useState([])
+  useEffect(() => {
+    getPeople()
+  }, [])
 
   const getPeople = async () => {
-    return await axios({
-      url: 'https://swapi.dev/api/planets/',
-    })
+    const response = await fetch(star_wars_API)
+
+    setDisplayPeople(await response.json())
   }
-
-  (async () => {
-    const people = await getPeople()
-    const result = people.data.results
-    console.log(result)
-  }) ()
-
-  //useEffect(() =>{
- 
-  //}, [])
 
   return (
     <div>
@@ -35,15 +28,7 @@ const App = (props) => {
         <br></br><br/>
         <SearchBar />
         <br></br><br/>
-        <Table 
-        /*
-              name={hero.name}
-              birthDate={hero.birthDate}
-              height={hero.height}
-              mass={hero.mass}
-              homeWorld={hero.homeworld}
-              species={hero.species}  
-        */
+        <Table newDisplay={displayPeople}
         /> 
         <br></br><br/>
         <Pagination />    

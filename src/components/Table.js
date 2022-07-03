@@ -2,33 +2,32 @@ import React from 'react'
 
 const Table = (props) => {
 
-  //<Card />
-
   return(
     <table>
-      <thead>
         <tr>
           <th>Name</th>
-          <th>Birth Date</th>
+          <th>Birth Year</th>
           <th>Height</th>
           <th>Mass</th>
           <th>Homeworld</th>
           <th>Species</th>
         </tr>
-      </thead>
+        {props.newDisplay.map(prev => {
+          return(
       <tbody>
-        <tr>
-          <td>{props.name}</td>
-          <td>{props.birthDate}</td>
-          <td>{props.height}</td>
-          <td>{props.mass}</td>
-          <td>{props.homeworld}</td>
-          <td>{props.species}</td>
+        <tr key={prev.created}>
+          <td>{prev.results.name}</td>
+          <td>{prev.results.birth_year}</td>
+          <td>{prev.results.height}</td>
+          <td>{prev.results.mass}</td>
+          <td>{prev.results.homeworld}</td>
+          <td>{prev.results.species}</td>
         </tr>
       </tbody>
+          )
+        })}
     </table>
   )
-
 }
 
 export default Table 
