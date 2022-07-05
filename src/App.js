@@ -8,6 +8,8 @@ import  Pagination from './components/Pagination';
 const App = (props) => {
   
   const star_wars_API = 'https://swapi.dev/api/people/'
+  const homeworld_path = 'https://swapi.dev/api/planets/'
+  const species_path = 'https://swapi.dev/api/species/'
   const [displayPeople, setDisplayPeople] = useState([])
 
   useEffect(() => {
@@ -16,8 +18,9 @@ const App = (props) => {
 
   const getPeople = async () => {
     const response = await fetch(star_wars_API)
-
-    setDisplayPeople(await response.json())
+    const data = await response.json()
+    const amazing = data.results
+    setDisplayPeople(amazing)
   }
 
   return (

@@ -4,6 +4,7 @@ const Table = (props) => {
 
   return(
     <table>
+      <thead>
         <tr>
           <th>Name</th>
           <th>Birth Year</th>
@@ -12,20 +13,21 @@ const Table = (props) => {
           <th>Homeworld</th>
           <th>Species</th>
         </tr>
+      </thead>
+      <tbody>
         {props.newDisplay.map(prev => {
           return(
-      <tbody>
         <tr key={prev.created}>
-          <td>{prev.results.name}</td>
-          <td>{prev.results.birth_year}</td>
-          <td>{prev.results.height}</td>
-          <td>{prev.results.mass}</td>
-          <td>{prev.results.homeworld}</td>
-          <td>{prev.results.species}</td>
+          <td>{prev.name}</td>
+          <td>{prev.birth_year}</td>
+          <td>{prev.height}</td>
+          <td>{prev.mass}</td>
+          <td>{prev.homeworld}</td>
+          <td>{prev.species}</td>
         </tr>
-      </tbody>
           )
         })}
+    </tbody>
     </table>
   )
 }
