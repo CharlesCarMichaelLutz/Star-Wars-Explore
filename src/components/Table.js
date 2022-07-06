@@ -22,11 +22,14 @@ const Table = (props) => {
           <td>{prev.birth_year}</td>
           <td>{prev.height}</td>
           <td>{prev.mass}</td>
-          <td>{prev.homeworld}</td>
-          <td>{prev.species}</td>
+        {props.newHome.map(prev => {
+          return(<td key={prev.name}>{prev.name}</td>)
+        })} 
+          {props.newSpecies.map(prev => {
+            return(<td key={prev.name}>{prev.name[1]}</td>)
+          })}        
         </tr>
-          )
-        })}
+        )})}                    
     </tbody>
     </table>
   )
