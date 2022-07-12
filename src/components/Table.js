@@ -15,15 +15,24 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-      {props.newCharData.map(one => {
+        
+  {props.newCharData.map(data => {
         return(
-          <tr key={one.id}>
-            <td>{one.name}</td>
-            <td>{one.birth_year}</td>
-            <td>{one.height}</td>
-            <td>{one.mass}</td>
-            <td>{one.name}</td>
-            <td>{one.name}</td>
+          <tr key={data.id}>
+            <td>{data[0,1,2].name}</td>
+            <td>{data[3].birth_year}</td>
+            <td>{data[2].height}</td>
+            <td>{data[1].mass}</td>
+            {props.newPlanetData.map(data => {
+        return(
+            <td>{data[8].name}</td>
+        )
+      })}
+         {props.newSpeciesData.map(data => {
+        return(
+            <td>{data[7].name}</td>
+        )
+      })}             
           </tr>
         )
       })}
@@ -33,3 +42,25 @@ const Table = (props) => {
 }
 
 export default Table 
+
+/*
+  
+
+
+       {props.newCharData.map(data => {
+          {props.newPlanetData.map(home =>{
+              {props.newSpeciesData.map(spec => { 
+    return(
+         <tr key={data.id}>
+          <td>{data.name}</td>
+          <td>{data.birth_year}</td>
+          <td>{data.height}</td>
+          <td>{data.mass}</td>
+          <td>{home.name}</td>
+          <td>{spec.name}</td>
+        </tr>
+    )
+              })}
+            })}
+          })}
+*/

@@ -7,33 +7,60 @@ import  Pagination from './components/Pagination';
 const App = (props) => {
   
   const star_wars_API = 'https://swapi.dev/api/people/'
-  const homeworld_path = 'https://swapi.dev/api/planets/'
-  const species_path = 'https://swapi.dev/api/species/'
-  const [charData, setCharData] = useState([{}])
-  console.log(setCharData)
-  
+  const homeworld_API = 'https://swapi.dev/api/planets/'
+  const species_API = 'https://swapi.dev/api/species/'
+
+  const [characterData, setCharacterData] = useState([])
+  const [planetData, setPlanetData] = useState([])
+  const [speciesData, setSpeciesData] = useState([])
+
   useEffect(() => {
-    getStarWarsInfo()
+    getStarWarsInfo()  
   }, [])
 
 const getStarWarsInfo = async () => {
-  const response1 = await fetch(star_wars_API)
-      const characters = await response1.json()
-      const characters_data = characters.results
+  const characters = fetch(star_wars_API)
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=2"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=3"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=4"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=5"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=6"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=7"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=8"))
+                    .then(res => res.json())
+                    .then(res => res.results)
+                    .then(fetch("https://swapi.dev/api/people/?page=9"))
 
-  const response2 = await fetch(homeworld_path)
-      const planets = await response2.json()
-      const planets_data = planets.results
+  const planet = fetch(homeworld_API)
+                    .then(res => res.json())
+                    .then(res => res.results)  
+  
+  const species = fetch(species_API)
+                    .then(res => res.json())
+                    .then(res => res.results)
 
-  const response3 = await fetch(species_path)
-      const species = await response3.json()
-      const species_data = species.results
- 
-  const retrieveAll = async () => {
-    let results = await Promise.all([characters_data, planets_data, species_data])
-    setCharData(results)
-  }
-  retrieveAll()
+  const one = await Promise.all([characters])
+  const two = await Promise.all([planet])
+  const three = await Promise.all([species])
+
+  setCharacterData(one)
+  setPlanetData(two)
+  setSpeciesData(three)
+
 }
 
   return (
@@ -44,7 +71,9 @@ const getStarWarsInfo = async () => {
         <br></br><br/>
         <SearchBar />
         <br></br><br/>
-        <Table newCharData={charData}
+        <Table newCharData={characterData}
+               newPlanetData={planetData}
+               newSpeciesData={speciesData}
         /> 
         <br></br><br/>
         <Pagination />    
