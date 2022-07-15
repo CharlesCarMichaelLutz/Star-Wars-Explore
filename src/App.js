@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
+//import axios from 'axios'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
@@ -19,32 +20,47 @@ const App = (props) => {
   }, [])
 
 const getStarWarsInfo = async () => {
-  const characters = fetch(star_wars_API)
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=2"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=3"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=4"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=5"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=6"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=7"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=8"))
-                    .then(res => res.json())
-                    .then(res => res.results)
-                    .then(fetch("https://swapi.dev/api/people/?page=9"))
 
+/*
+  const characters  = fetch(star_wars_API)
+                      .then(res => res.json())
+                      .then(res => res.results)  
+*/
+
+const characters  = fetch(star_wars_API).then(res => {
+                  return  res.json()
+                  }).then(res => {
+                    return fetch(res.json() + "https://swapi.dev/api/people/?page=2")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=3")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=4")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=5")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=6")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=7")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=8")
+                  }).then(res => {
+                    return res.json()
+                  }).then(res => {
+                    return fetch(res + "https://swapi.dev/api/people/?page=9")
+                  })
+                  
   const planet = fetch(homeworld_API)
                     .then(res => res.json())
                     .then(res => res.results)  

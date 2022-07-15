@@ -2,9 +2,10 @@ import React from 'react'
 
 const Pagination = () => {
   return(
-    <section>
-      pagination occurs here 
-    </section>
+    <nav className='pagination'>   
+          <button className='page-link'>Previous</button>
+          <button className='page-link'>Next</button> 
+    </nav>
   )
 
 }
