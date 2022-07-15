@@ -16,6 +16,19 @@ const App = (props) => {
   const [speciesData, setSpeciesData] = useState([])
 
   useEffect(() => {
+    const getChracters = async () => {
+
+      let next = star_wars_API
+
+      while(next) {
+
+      }
+
+      const data = await fetch(star_wars_API)
+
+    }
+
+    getCharacters();
     getStarWarsInfo()  
   }, [])
 
