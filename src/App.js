@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-//import axios from 'axios'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
@@ -14,83 +13,51 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [planetData, setPlanetData] = useState([])
   const [speciesData, setSpeciesData] = useState([])
-
-  useEffect(() => {
-    const getChracters = async () => {
-
+ 
+// when app loads up
+  useEffect(() => {    
+    const getCharacters = async () => {
       let next = star_wars_API
-
+  // if "next" property of response is truthy then make another http request to that url
+   // repeat above logic until "next" property is falsey
       while(next) {
-
+    // make http request to api/characters
+      const data = await fetch(next)
+        .then((res) => res.json())
+      // store response results in a piece of state called "characters"
+        setCharacterData(prevState => [...data.results, ...prevState])
+      next = data.next
       }
-
-      const data = await fetch(star_wars_API)
-
     }
 
-    getCharacters();
-    getStarWarsInfo()  
+    const getPlanets = async () => {
+      let next = homeworld_API
+      while(next) {
+      const data = await fetch(next)
+        .then((res) => res.json())
+         setPlanetData(prevState => [...data.results, ...prevState])
+      next = data.next
+      }
+    }
+
+    const getSpecies = async () => {
+      let next = species_API
+      while(next) { 
+      const data = await fetch(next)
+        .then((res) => res.json())
+         setSpeciesData(prevState => [...data.results, ...prevState])
+      next = data.next
+      }
+    }
+
+    getCharacters()
+    getPlanets()
+    getSpecies()  
   }, [])
 
-const getStarWarsInfo = async () => {
-
-/*
-  const characters  = fetch(star_wars_API)
-                      .then(res => res.json())
-                      .then(res => res.results)  
-*/
-
-const characters  = fetch(star_wars_API).then(res => {
-                  return  res.json()
-                  }).then(res => {
-                    return fetch(res.json() + "https://swapi.dev/api/people/?page=2")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=3")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=4")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=5")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=6")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=7")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=8")
-                  }).then(res => {
-                    return res.json()
-                  }).then(res => {
-                    return fetch(res + "https://swapi.dev/api/people/?page=9")
-                  })
-                  
-  const planet = fetch(homeworld_API)
-                    .then(res => res.json())
-                    .then(res => res.results)  
-  
-  const species = fetch(species_API)
-                    .then(res => res.json())
-                    .then(res => res.results)
-
-  const one = await Promise.all([characters])
-  const two = await Promise.all([planet])
-  const three = await Promise.all([species])
-
-  setCharacterData(one)
-  setPlanetData(two)
-  setSpeciesData(three)
-
-}
+  //const one = await Promise.all([data])
+  //const two = await Promise.all([planet])
+  //const three = await Promise.all([species])
 
   return (
     <div>
