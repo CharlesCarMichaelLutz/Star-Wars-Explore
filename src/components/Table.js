@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Table = (props) => {
+ const Table = (props) => {
 
   return(
     <table>
@@ -15,27 +15,19 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.newCharData.map(data => {
+        {props.newCharData.map(char => {
           return(
-          <tr key={data.index}>
-            <td>{data.name}</td>
-            <td>{data.birth_year}</td>
-            <td>{data.height}</td>
-            <td>{data.mass}</td>
-        {props.newPlanetData.map(data => {
-          return(
-            <td>{data.name}</td>
-        )
-      })}
-        {props.newSpeciesData.map(data => {
-          return(
-            <td>{data.name}</td>
-        )
-      })}             
+            <tr>
+            <td>{char.name}</td>
+            <td>{char.birth_year}</td>
+            <td>{char.height}</td>
+            <td>{char.mass}</td>               
+            <td>{char.homeworld}</td>           
+            <td>{char.species}</td>            
           </tr>
-        )
-      })}
-      </tbody>
+          )
+        })}
+      </tbody> 
     </table>
   )
 }
@@ -43,7 +35,8 @@ const Table = (props) => {
 export default Table 
 
 /*
-    {props.newCharData.map(data => {
+    
+        {props.newCharData.map(data => {
           {props.newPlanetData.map(home =>{
               {props.newSpeciesData.map(spec => { 
     return(
@@ -59,4 +52,5 @@ export default Table
               })}
             })}
           })}
+
 */

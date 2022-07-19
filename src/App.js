@@ -13,7 +13,8 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [planetData, setPlanetData] = useState([])
   const [speciesData, setSpeciesData] = useState([])
- 
+  
+  
 // when app loads up
   useEffect(() => {    
     const getCharacters = async () => {
@@ -54,6 +55,29 @@ const App = (props) => {
     getPlanets()
     getSpecies()  
   }, [])
+
+  useEffect(() => {
+    const temp = characterData.map(character => {
+      for (const planet of planetData){
+        if (character.homeworld === planet.url){
+         character.homeworld = planet.name
+        }
+      }
+       return character 
+    })
+    console.log(temp)
+    const perm = characterData.map(character => {
+      for (const species of speciesData){
+        if (character.species === species.url){
+         character.species = species.name
+        }
+      }
+       return character 
+    })
+    console.log(perm)
+  }, [planetData, speciesData])
+
+  //problem with human species
 
   //const one = await Promise.all([data])
   //const two = await Promise.all([planet])
