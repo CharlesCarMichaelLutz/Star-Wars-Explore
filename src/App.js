@@ -14,18 +14,12 @@ const App = (props) => {
   const [planetData, setPlanetData] = useState([])
   const [speciesData, setSpeciesData] = useState([])
   
-  
-// when app loads up
   useEffect(() => {    
     const getCharacters = async () => {
       let next = star_wars_API
-  // if "next" property of response is truthy then make another http request to that url
-   // repeat above logic until "next" property is falsey
       while(next) {
-    // make http request to api/characters
       const data = await fetch(next)
         .then((res) => res.json())
-      // store response results in a piece of state called "characters"
         setCharacterData(prevState => [...data.results, ...prevState])
       next = data.next
       }
@@ -68,20 +62,16 @@ const App = (props) => {
     console.log(temp)
     const perm = characterData.map(character => {
       for (const species of speciesData){
-        if (character.species === species.url){
-         character.species = species.name
+        if (character.species != species.url){
+         character.species = "Human"
+        }else if(character.species === species.url){
+          character.species = species.name
         }
       }
        return character 
     })
     console.log(perm)
   }, [planetData, speciesData])
-
-  //problem with human species
-
-  //const one = await Promise.all([data])
-  //const two = await Promise.all([planet])
-  //const three = await Promise.all([species])
 
   return (
     <div>

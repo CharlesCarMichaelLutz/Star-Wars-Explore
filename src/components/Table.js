@@ -33,24 +33,3 @@ import React from 'react'
 }
 
 export default Table 
-
-/*
-    
-        {props.newCharData.map(data => {
-          {props.newPlanetData.map(home =>{
-              {props.newSpeciesData.map(spec => { 
-    return(
-         <tr key={data.id}>
-          <td>{data.name}</td>
-          <td>{data.birth_year}</td>
-          <td>{data.height}</td>
-          <td>{data.mass}</td>
-          <td>{home.name}</td>
-          <td>{spec.name}</td>
-        </tr>
-    )
-              })}
-            })}
-          })}
-
-*/
