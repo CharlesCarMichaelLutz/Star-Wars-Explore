@@ -13,6 +13,10 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [planetData, setPlanetData] = useState([])
   const [speciesData, setSpeciesData] = useState([])
+  const [isCharactersLoading, setIsCharactersLoading] = useState(true)
+  const [isSpeciesLoading, setIsSpeciesLoading] = useState(true)
+  const [isPlanetsLoading, setIsPlanetsLoading] = useState(true)
+
   
   useEffect(() => {    
     const getCharacters = async () => {
@@ -23,6 +27,7 @@ const App = (props) => {
         setCharacterData(prevState => [...data.results, ...prevState])
       next = data.next
       }
+      setIsCharactersLoading(false);
     }
 
     const getPlanets = async () => {
@@ -33,6 +38,7 @@ const App = (props) => {
          setPlanetData(prevState => [...data.results, ...prevState])
       next = data.next
       }
+      setIsPlanetsLoading(false);
     }
 
     const getSpecies = async () => {
@@ -43,6 +49,7 @@ const App = (props) => {
          setSpeciesData(prevState => [...data.results, ...prevState])
       next = data.next
       }
+      setIsSpeciesLoading(false);
     }
 
     getCharacters()
@@ -51,6 +58,7 @@ const App = (props) => {
   }, [])
 
   useEffect(() => {
+    if(isCharactersLoading === false && isPlanetsLoading === false && isSpeciesLoading === false) {
     const temp = characterData.map(character => {
       for (const planet of planetData){
         if (character.homeworld === planet.url){
@@ -62,16 +70,19 @@ const App = (props) => {
     console.log(temp)
     const perm = characterData.map(character => {
       for (const species of speciesData){
-        if (character.species != species.url){
+        //debugger;
+        if (character.species.length == 0){
          character.species = "Human"
-        }else if(character.species === species.url){
+        }else if(character.species[0] == species.url){
           character.species = species.name
         }
       }
        return character 
     })
     console.log(perm)
-  }, [planetData, speciesData])
+    setCharacterData(perm)
+  }
+  }, [isCharactersLoading, isPlanetsLoading, isSpeciesLoading])
 
   return (
     <div>
