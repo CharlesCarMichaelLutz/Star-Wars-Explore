@@ -3,6 +3,7 @@ import './index.css'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
+import  Pages from './components/Pages';
 
 const App = (props) => {
   
@@ -13,11 +14,16 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [planetData, setPlanetData] = useState([])
   const [speciesData, setSpeciesData] = useState([])
+
   const [isCharactersLoading, setIsCharactersLoading] = useState(true)
   const [isSpeciesLoading, setIsSpeciesLoading] = useState(true)
   const [isPlanetsLoading, setIsPlanetsLoading] = useState(true)
 
-  
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage] = useState(10)
+
+ 
+
   useEffect(() => {    
     const getCharacters = async () => {
       let next = star_wars_API
@@ -40,7 +46,7 @@ const App = (props) => {
       }
       setIsPlanetsLoading(false);
     }
-
+  
     const getSpecies = async () => {
       let next = species_API
       while(next) { 
@@ -51,26 +57,22 @@ const App = (props) => {
       }
       setIsSpeciesLoading(false);
     }
-
+  
     getCharacters()
     getPlanets()
     getSpecies()  
   }, [])
 
   useEffect(() => {
-    if(isCharactersLoading === false && isPlanetsLoading === false && isSpeciesLoading === false) {
-    const temp = characterData.map(character => {
+    if(isCharactersLoading === false && isPlanetsLoading === false && isSpeciesLoading === false) { 
+    const matchingData = characterData.map(character => {
       for (const planet of planetData){
         if (character.homeworld === planet.url){
          character.homeworld = planet.name
         }
       }
-       return character 
-    })
-    console.log(temp)
-    const perm = characterData.map(character => {
+
       for (const species of speciesData){
-        //debugger;
         if (character.species.length == 0){
          character.species = "Human"
         }else if(character.species[0] == species.url){
@@ -79,10 +81,18 @@ const App = (props) => {
       }
        return character 
     })
-    console.log(perm)
-    setCharacterData(perm)
+    setCharacterData(matchingData)
   }
   }, [isCharactersLoading, isPlanetsLoading, isSpeciesLoading])
+
+  
+  const indexOfEnd = currentPage * rowsPerPage
+  const indexOfStart = indexOfEnd - rowsPerPage
+  const displayPages = characterData.map(character => {
+    (character.slice(indexOfStart, indexOfEnd))
+  })
+
+  const paginate = (pageNumber) => setCharacterData(pageNumber)
 
   return (
     <div>
@@ -93,11 +103,17 @@ const App = (props) => {
         <SearchBar />
         <br></br><br/>
         <Table newCharData={characterData}
-               newPlanetData={planetData}
-               newSpeciesData={speciesData}
         /> 
         <br></br><br/>
-        <Pagination />    
+        <Pages 
+        pages={displayPages}
+                    />   
+        <Pagination 
+        rowsPerPage={rowsPerPage}
+        totalPages={characterData.length}
+        paginate={paginate}
+        
+        /> 
     </div>    
   )
 }

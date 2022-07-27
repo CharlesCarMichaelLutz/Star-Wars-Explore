@@ -1,6 +1,6 @@
 import React from 'react'
 
- const Table = (props) => {
+ const Table = ({newCharData}) => {
 
   return(
     <table>
@@ -15,7 +15,7 @@ import React from 'react'
         </tr>
       </thead>
       <tbody>
-        {props.newCharData.map(char => {
+        {newCharData.map(char => {
           return(
             <tr>
             <td>{char.name}</td>
