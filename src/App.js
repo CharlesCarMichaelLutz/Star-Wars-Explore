@@ -19,49 +19,36 @@ const App = (props) => {
   const [isSpeciesLoading, setIsSpeciesLoading] = useState(true)
   const [isPlanetsLoading, setIsPlanetsLoading] = useState(true)
 
-  const [currentPage, setCurrentPage] = useState(1)
+  const [nextPage, setNextPage] = useState(1)
   const [rowsPerPage] = useState(10)
 
  
 
   useEffect(() => {    
-    const getCharacters = async () => {
-      let next = star_wars_API
-      while(next) {
-      const data = await fetch(next)
-        .then((res) => res.json())
-        setCharacterData(prevState => [...data.results, ...prevState])
-      next = data.next
-      }
+    const getCharacters = async () => {      
+      const data = await fetch(star_wars_API)
+        .then(async (res) =>  {
+          const characterData = await res.json()
+          console.log(characterData)
+          const characters = await getAdditionalData(characterData.results)
+          setCharacterData(characters)
+        })   
       setIsCharactersLoading(false);
     }
-
-    const getPlanets = async () => {
-      let next = homeworld_API
-      while(next) {
-      const data = await fetch(next)
-        .then((res) => res.json())
-         setPlanetData(prevState => [...data.results, ...prevState])
-      next = data.next
-      }
-      setIsPlanetsLoading(false);
-    }
   
-    const getSpecies = async () => {
-      let next = species_API
-      while(next) { 
-      const data = await fetch(next)
-        .then((res) => res.json())
-         setSpeciesData(prevState => [...data.results, ...prevState])
-      next = data.next
-      }
-      setIsSpeciesLoading(false);
-    }
-  
-    getCharacters()
-    getPlanets()
-    getSpecies()  
+    getCharacters() 
   }, [])
+
+  async function getAdditionalData(characters) {
+    for(const character of characters) {
+      character.homeworld = await fetch(character.homeworld).then(async (res) => {
+        const response = await res.json()
+
+        return response.name 
+      })
+    }
+    return characters 
+  }
 
   useEffect(() => {
     if(isCharactersLoading === false && isPlanetsLoading === false && isSpeciesLoading === false) { 
@@ -85,13 +72,6 @@ const App = (props) => {
   }
   }, [isCharactersLoading, isPlanetsLoading, isSpeciesLoading])
 
-  
-  const indexOfEnd = currentPage * rowsPerPage
-  const indexOfStart = indexOfEnd - rowsPerPage
-  const displayPages = characterData.map(character => {
-    (character.slice(indexOfStart, indexOfEnd))
-  })
-
   const paginate = (pageNumber) => setCharacterData(pageNumber)
 
   return (
@@ -106,11 +86,11 @@ const App = (props) => {
         /> 
         <br></br><br/>
         <Pages 
-        pages={displayPages}
+        pages={characterData}
                     />   
         <Pagination 
         rowsPerPage={rowsPerPage}
-        totalPages={characterData.length}
+        totalPages={characterData}
         paginate={paginate}
         
         /> 
