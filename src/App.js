@@ -8,8 +8,6 @@ import  Pages from './components/Pages';
 const App = (props) => {
   
   const star_wars_API = 'https://swapi.dev/api/people/'
-  const homeworld_API = 'https://swapi.dev/api/planets/'
-  const species_API = 'https://swapi.dev/api/species/'
 
   const [characterData, setCharacterData] = useState([])
   const [planetData, setPlanetData] = useState([])
@@ -22,14 +20,12 @@ const App = (props) => {
   const [nextPage, setNextPage] = useState(1)
   const [rowsPerPage] = useState(10)
 
- 
-
   useEffect(() => {    
     const getCharacters = async () => {      
-      const data = await fetch(star_wars_API)
+      await fetch(star_wars_API)
         .then(async (res) =>  {
           const characterData = await res.json()
-          console.log(characterData)
+          setNextPage(characterData.next)
           const characters = await getAdditionalData(characterData.results)
           setCharacterData(characters)
         })   
@@ -43,12 +39,21 @@ const App = (props) => {
     for(const character of characters) {
       character.homeworld = await fetch(character.homeworld).then(async (res) => {
         const response = await res.json()
-
-        return response.name 
+        return response.name
       })
     }
-    return characters 
+    return characters
   }
+
+  // async function getAdditionalData(characters) {
+  //   for(const creature of characters) {
+  //     creature.species = await fetch(creature.species).then(async (res) => {
+  //       const returnSpecies = await res.json()
+  //       return returnSpecies.name
+  //     })
+  //   }
+  //   return characters
+  // }
 
   useEffect(() => {
     if(isCharactersLoading === false && isPlanetsLoading === false && isSpeciesLoading === false) { 
