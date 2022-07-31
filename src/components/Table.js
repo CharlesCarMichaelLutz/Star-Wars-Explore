@@ -17,7 +17,7 @@ import React from 'react'
       <tbody>
         {newCharData.map(char => {
           return(
-            <tr>
+            <tr key={char.id}>
             <td>{char.name}</td>
             <td>{char.birth_year}</td>
             <td>{char.height}</td>
