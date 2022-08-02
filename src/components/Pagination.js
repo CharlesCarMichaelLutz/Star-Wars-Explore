@@ -1,24 +1,29 @@
 import React from 'react'
 
-const Pagination = ({totalPages, paginate }) => {
+const Pagination = ({totalPages, clickPages, previous, next}) => {
+  
    const pageNumbers = []
 
    for (let i = 1; i <= Math.ceil(totalPages); i++) {
-      pageNumbers.push(i)
+      pageNumbers.push((
+         <button
+            key={i}
+            className='page--numbers'
+            onClick={clickPages}
+            value={i}
+            >
+               {i}
+         </button>
+      ))
     }
    
    return(
-      <nav >   
-         <ul className='pagination'>
-         {pageNumbers.map(number => (
-            <li key={number}>
-               <a onClick={() => paginate(number)} href="!#">
-                  {number}
-               </a>
-            </li>
-         ))}
-         </ul>
-      </nav>  
+      <nav>
+         <button onClick={previous}>Previous</button>
+         {pageNumbers}
+         <button onClick={next}>Next</button>
+      </nav>
+      
    )
  }
  
