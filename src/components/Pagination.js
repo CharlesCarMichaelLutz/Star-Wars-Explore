@@ -9,7 +9,7 @@ const Pagination = ({totalPages, clickPages, previous, next}) => {
          <button
             key={i}
             className='page--numbers'
-            onClick={clickPages}
+            //onClick={clickPages}
             value={i}
             >
                {i}

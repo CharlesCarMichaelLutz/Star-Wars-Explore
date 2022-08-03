@@ -10,11 +10,20 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [nextPage, setNextPage] = useState(1)
 
+  //When my app fires up getCharacters will fetch and receive the first 10 characters
+    // and they will be populated in the table
+      // I have the pagination bar living below 
+        //which has number buttons and a Previous, and a Next button
+          // both are connected to an onClick I have in the Pagination component through props
+            //state is being held here in App.js
+
   useEffect(() => {    
     const getCharacters = async () => {      
       await fetch(star_wars_API)
         .then(async (res) =>  {
           const characterData = await res.json()
+          //this is where my nextPage url is being saved into state initially
+            //maybe I need to access/manipulate it right here in the useEffect ? 
           setNextPage(characterData.next)
           const characters1 = await getAdditionalData(characterData.results)
           setCharacterData(characters1)
@@ -41,19 +50,37 @@ const App = (props) => {
   } 
     return characters
   }
-
+/*
   const handlePageClick = (e) => {
     setNextPage(Number(e.target.id))
   }
-  //debugger
+  */
+
+  // when Previous buttton is clicked
+    //this gets fired
    function handlePreviousBtn() {
-      setNextPage(nextPage === 0 ? 0 : nextPage - 1)
+      //the callback of setNextPage will map over the nextPage array
+      setNextPage(nextPage.map(async prev =>{
+        //url from state will be fetched with the variable below
+        const twoPage = await fetch(prev.characterData.previous)
+          //previous page will be populated in the table
+        return twoPage.previous
+      }   
+      ))
    }
-
+   // when Next buttton is clicked
+    //this gets fired
    function handleNextBtn() {
-      setNextPage(nextPage === 8 ? 8 : nextPage + 1)
+      //the callback of setNextPage will map over the nextPage array
+      setNextPage(nextPage.map(async next => {
+        //url from state will be fetched with the variable below
+        const onePage = await fetch(next.characterData)
+          //previous page will be populated in the table
+        return onePage.next
+      }     
+        ))
    }
-
+//nextPage === 8 ? 8 : nextPage + 1
   return (
     <div>
         <header>
@@ -67,7 +94,7 @@ const App = (props) => {
         <br></br><br/>  
         <Pagination 
         totalPages={characterData.length}
-        clickPages={handlePageClick}
+        //clickPages={handlePageClick}
         previous={handlePreviousBtn}
         next={handleNextBtn}
         
