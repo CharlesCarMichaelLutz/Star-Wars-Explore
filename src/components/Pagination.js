@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Pagination = ({totalPages, clickPages, previous, next}) => {
+const Pagination = ({totalPages, clickPages, prevPage, nextPage, getCharacters}) => {
   
    const pageNumbers = []
 
@@ -18,10 +18,18 @@ const Pagination = ({totalPages, clickPages, previous, next}) => {
     }
    
    return(
-      <nav>
-         <button onClick={previous}>Previous</button>
+      <nav>    
+        <button 
+        onClick={() => {
+           getCharacters(prevPage)
+        }
+      }
+        >Previous</button>
          {pageNumbers}
-         <button onClick={next}>Next</button>
+         <button 
+         onClick={
+            async () => await fetch(nextPage)}
+         >Next</button>
       </nav>
       
    )
