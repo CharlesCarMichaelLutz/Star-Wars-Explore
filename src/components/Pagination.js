@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Pagination = ({totalPages, clickPages, prevPage, nextPage, getCharacters}) => {
+const Pagination = ({totalPages, clickPages, previous, next, getCharacters}) => {
   
    const pageNumbers = []
 
@@ -10,7 +10,7 @@ const Pagination = ({totalPages, clickPages, prevPage, nextPage, getCharacters})
             key={i}
             className='page--numbers'
             //onClick={clickPages}
-            value={i}
+            value={`https://swapi.dev/api/people/?page=${i}`}
             >
                {i}
          </button>
@@ -21,14 +21,15 @@ const Pagination = ({totalPages, clickPages, prevPage, nextPage, getCharacters})
       <nav>    
         <button 
         onClick={() => {
-           getCharacters(prevPage)
+           getCharacters(previous)
         }
       }
         >Previous</button>
          {pageNumbers}
          <button 
          onClick={
-            async () => await fetch(nextPage)}
+           () => getCharacters(next)
+         }
          >Next</button>
       </nav>
       
@@ -36,3 +37,4 @@ const Pagination = ({totalPages, clickPages, prevPage, nextPage, getCharacters})
  }
  
  export default Pagination 
+ const url = 'https://swapi.dev/api/people/?page=1'
