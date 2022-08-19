@@ -10,13 +10,7 @@ const App = (props) => {
   const [characterData, setCharacterData] = useState([])
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
-
-  //When my app fires up getCharacters will fetch and receive the first 10 characters
-  // and they will be populated in the table
-  // I have the pagination bar living below 
-  //which has number buttons and a Previous, and a Next button
-  // both are connected to an onClick I have in the Pagination component through props
-  //state is being held here in App.js
+  //const [currentPage, setCurrentPage] = useState()
 
   useEffect(() => {  
     getCharacters(star_wars_API) 
@@ -26,10 +20,9 @@ const App = (props) => {
       await fetch(url)
         .then(async (res) =>  {
           const characterData = await res.json()
-          //this is where my nextPage url is being saved into state initially
-          //maybe I need to access/manipulate it right here in the useEffect ? 
           setNextPage(characterData.next)
           setPrevPage(characterData.previous)
+          //setCurrentPage(characterData)
           const characters1 = await getAdditionalData(characterData.results)
           setCharacterData(characters1)
         })   
@@ -47,13 +40,19 @@ const App = (props) => {
       }else{ 
        character.species = await fetch(character.species).then(async (res) => {
         const retrieve = await res.json()
-        return retrieve.name})     
+        return retrieve.name
+      })     
     } 
   } 
     return characters
   }
 
-//nextPage === 8 ? 8 : nextPage + 1
+  /*
+  function changePage(e) {
+    const pageNumber = Number(e.target.value)
+    setCurrentPage(pageNumber)
+  }
+*/
   return (
     <div>
       <header>
@@ -69,9 +68,9 @@ const App = (props) => {
         <br/><br/>  
         <Pagination 
         totalPages={characterData.length}
-        //clickPages={handlePageClick}
         previous={prevPage}
         next={nextPage}
+       //clickPages={changePage}
         getCharacters={getCharacters}
         /> 
       </main>
