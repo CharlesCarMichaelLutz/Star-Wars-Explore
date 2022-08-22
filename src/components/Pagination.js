@@ -49,4 +49,6 @@ const Pagination = ({totalPages, clickPages, previous, next, getCharacters}) => 
  Uncaught (in promise) SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
  Afterwards it takes two clicks of the next button to get back to the first page of characters.
  The same thing happens when I reach the final page and try to go in the reverse direction.
+
+ onChange={(e) => setText(e.target.value)}
  */

@@ -10,7 +10,7 @@ import React from 'react'
           <th>Birth Year</th>
           <th>Height</th>
           <th>Mass</th>
-          <th>Homeworld</th>
+          <th>Planet</th>
           <th>Species</th>
         </tr>
       </thead>

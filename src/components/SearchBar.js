@@ -1,19 +1,25 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const SearchBar = () => {
+const SearchBar = ({ getQuery, getCharacters }) => {
 
   //url.filter(prev => )
 
-  return(
+  const [text, setText] = useState('')
 
+  const onChange = (q) => {
+    setText(q)
+    getQuery(q)
+  }
+
+  return(
     <section className='search'>
       <form>
         <input
         type='text'
         className='form-control'
-        placeholder='Seach characters'
-        //value={0}
-        //onChange=
+        placeholder='Search characters'
+        value={text}
+        onChange={(e) => onChange(e.target.value)}
         />
       </form>
     </section>
@@ -28,9 +34,5 @@ export default SearchBar
       array.filter()
       track another piece of state 
       can only filter 10 characters at a time 
-    
-        <div className='search--bar'>
-      <span>Search:</span> 
-      <input type='text' placeholder="search character..."></input>
-    </div>
+
     */}
