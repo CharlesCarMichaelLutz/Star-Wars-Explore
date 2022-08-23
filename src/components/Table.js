@@ -1,8 +1,9 @@
 import React from 'react'
 
- const Table = ({newCharData}) => {
+ const Table = ({newCharData, isLoading}) => {
 
   return(
+    isLoading ? <h1>Loading...</h1> :
     <table>
       <thead>
         <tr>
@@ -17,13 +18,13 @@ import React from 'react'
       <tbody>
         {newCharData.map(char => {
           return(
-            <tr key={char.id}>
-            <td>{char.name}</td>
-            <td>{char.birth_year}</td>
-            <td>{char.height}</td>
-            <td>{char.mass}</td>               
-            <td>{char.homeworld}</td>           
-            <td>{char.species}</td>            
+            <tr key={char.name}>
+              <td>{char.name}</td>
+              <td>{char.birth_year}</td>
+              <td>{char.height}</td>
+              <td>{char.mass}</td>               
+              <td>{char.homeworld}</td>           
+              <td>{char.species}</td>            
           </tr>
           )
         })}

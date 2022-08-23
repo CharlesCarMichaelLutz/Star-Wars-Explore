@@ -6,9 +6,10 @@ header {
   font-size: 30px;
 }
 
-.search--bar {
+.search {
   text-align: center;
   display:flex;
+  left:42.5%;
 }
 
 table {
@@ -21,4 +22,25 @@ th, td {
   text-align: center;
   border: 1px solid black;
   padding: 10px;
+}
+
+.pagination {
+  position:fixed;
+  left:42.5%;
+}
+
+
+.form-control {
+  text-align: center;
+  position: fixed;
+  display:flex;
+  width:25%;
+  height:2.5%;
+}
+
+.character-form {
+  position: fixed;
+  text-align: center;
+  display:flex;
+  left:37.5%;
 }

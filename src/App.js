@@ -3,17 +3,16 @@ import './index.css'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
-import  {nanoid} from 'nanoid';
 
-const App = (props) => {
+const App = () => {
   
   const star_wars_API = 'https://swapi.dev/api/people'
   const [characterData, setCharacterData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
   const [query, setQuery] = useState('')
-  //const [currentPage, setCurrentPage] = useState()
-
+  
   useEffect(() => {  
     getCharacters(star_wars_API + '?name=${query}') 
   }, [query])   
@@ -24,9 +23,9 @@ const App = (props) => {
           const characterData = await res.json()
           setNextPage(characterData.next)
           setPrevPage(characterData.previous)
-          //setCurrentPage(characterData)
           const additionalData = await getAdditionalData(characterData.results)
           setCharacterData(additionalData)
+          setIsLoading(false)
         })   
     }
   
@@ -49,12 +48,6 @@ const App = (props) => {
     return characters
   }
 
-  /*
-  function changePage(e) {
-    const pageNumber = Number(e.target.value)
-    setCurrentPage(pageNumber)
-  }
-*/
   return (
     <div>
       <header>
@@ -62,17 +55,19 @@ const App = (props) => {
       </header>
       <div>
         <br/><br/>
-        <SearchBar getQuery={(q) => setQuery(q)}/>
+        <SearchBar 
+        getQuery={(q) => setQuery(q)}/>
         <br/><br/>
       </div>
       <main>
-        <Table newCharData={characterData}/> 
+        <Table 
+        newCharData={characterData}
+        isLoading={isLoading}/> 
         <br/><br/>  
         <Pagination 
-        totalPages={characterData.length}
+        //totalPages={characterData.length}
         previous={prevPage}
         next={nextPage}
-       //clickPages={changePage}
         getCharacters={getCharacters}
         /> 
       </main>
