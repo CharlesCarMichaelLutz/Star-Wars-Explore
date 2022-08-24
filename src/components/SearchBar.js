@@ -1,30 +1,6 @@
 import React, {useState} from 'react'
 
-const SearchBar = ({ getQuery, characterData }) => {
-/*
-  //url.filter(prev => )
-
-  const [text, setText] = useState('')
-
-  const onChange = (q) => {+
-    setText(q)
-    getQuery(q)
-  }
-
-  return(
-    <section className='search'>
-      <form className='character-form'>
-        <input
-        type='text'
-        className='form-control'
-        placeholder='Search Characters'
-        value={text}
-        onChange={(e) => onChange(e.target.value)}
-        />
-      </form>
-    </section>
-  )
-  */
+const SearchBar = ({characterData}) => {
 
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -35,21 +11,35 @@ const SearchBar = ({ getQuery, characterData }) => {
         placeholder='Search'
         onChange={(e) => setSearchTerm(e.target.value)} 
       />
-      {characterData.filter((val) => { return searchTerm == '' ? val : val.name.toLowerCase().includes(searchTerm.toLowerCase) }).map((char, key={key}) => {
-      return <div className='user' key={key}><p>{char.name}</p></div>
-      })}
+    {characterData.filter((char) => {
+      if(searchTerm == '') {
+        return char
+      } else if (char.name.toLowerCase().includes(searchTerm.toLowerCase())){
+        return char
+      }
+    }).map((char, key) => {
+      return (
+        <div key={key}>
+          <p>{char.name}</p>
+        </div>
+      )
+    })}
     </div>
   )
-
-
-
 }
 
 export default SearchBar
 
    {/*
+
       Hints
       array.filter()
       track another piece of state 
       can only filter 10 characters at a time 
+
+      08/24/22
+      SearchBar is connected and functioning,
+      however it will duplicate and display the array items above the table
+      I expect the table to only display the <tr> typed in value for the search 
+
     */}

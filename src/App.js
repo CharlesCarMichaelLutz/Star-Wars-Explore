@@ -3,6 +3,7 @@ import './index.css'
 import  Table from './components/Table';
 import  SearchBar from './components/SearchBar';
 import  Pagination from './components/Pagination';
+import  Header from './components/Header';
 
 const App = () => {
   
@@ -11,13 +12,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
-  //const [query, setQuery] = useState('')
   
   useEffect(() => { 
-    /*
-     getCharacters(star_wars_API+`?name${query}`) 
-  }, [query])
-    */
     getCharacters(star_wars_API) 
   }, [])
 
@@ -54,31 +50,52 @@ const App = () => {
 
   return (
     <div>
-      <header>
-        Star Wars Characters 
-      </header>
-      <div>
-        <br/><br/>
+        <Header />
         <SearchBar 
-        characterData={characterData} />
-        <br/><br/>
-      </div>
-      <main>
+        characterData={characterData} 
+        />
         <Table 
         newCharData={characterData}
         isLoading={isLoading}/> 
-        <br/><br/>  
         <Pagination 
         //totalPages={characterData.length}
         previous={prevPage}
         next={nextPage}
         getCharacters={getCharacters}
         /> 
-      </main>
-    </div>    
+    </div> 
+    
+   /*
+    <div>
+    <Header />
+  <section>
+    <br/><br/>
+    <SearchBar 
+    characterData={characterData} />
+    <br/><br/>
+  </section>
+  <main>
+    <Table 
+    newCharData={characterData}
+    isLoading={isLoading}/> 
+    <br/><br/>
+  </main>
+  <footer>
+    <Pagination 
+    //totalPages={characterData.length}
+    previous={prevPage}
+    next={nextPage}
+    getCharacters={getCharacters}
+    /> 
+  </footer>
+</div> 
+*/
   )
 }
 
 export default App;
-
-{/*getQuery={(q) => setQuery(q)*/}
+/*
+<header>
+        
+</header>
+*/

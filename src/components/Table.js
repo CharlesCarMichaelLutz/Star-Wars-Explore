@@ -4,6 +4,7 @@ import React from 'react'
 
   return(
     isLoading ? <h1>Loading...</h1> :
+    
     <table>
       <thead>
         <tr>
