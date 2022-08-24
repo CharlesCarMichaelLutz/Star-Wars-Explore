@@ -16,7 +16,6 @@ const Pagination = ({totalPages, previous, next, getCharacters}) => {
             </button>   
       ))
     }
-   
    return(
    <nav className='pagination'>       
       <button onClick={() => getCharacters(previous === null ? previous + 1 : previous)}>Previous</button>
@@ -25,9 +24,14 @@ const Pagination = ({totalPages, previous, next, getCharacters}) => {
     </nav>  
    )
  }
- 
  export default Pagination 
  
 /* 
- Math.ceil(totalPages)
+
+Having trouble getting exactly 9 page buttons to render when: 
+   Math.ceil(totalPages)   //hardcoded to 9 currently  
+         is entered as the second condition in the for loop 
+         10 pages
+         It may have to do with characterData only receiving 10 objects at a  time, and 
+         it's not able to see how many total object characters are coming back from the API 
  */

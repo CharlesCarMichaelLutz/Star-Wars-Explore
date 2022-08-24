@@ -11,11 +11,15 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [nextPage, setNextPage] = useState()
   const [prevPage, setPrevPage] = useState()
-  const [query, setQuery] = useState('')
+  //const [query, setQuery] = useState('')
   
-  useEffect(() => {  
-    getCharacters(star_wars_API + '?name=${query}') 
-  }, [query])   
+  useEffect(() => { 
+    /*
+     getCharacters(star_wars_API+`?name${query}`) 
+  }, [query])
+    */
+    getCharacters(star_wars_API) 
+  }, [])
 
     const getCharacters = async (url) => {      
       await fetch(url)
@@ -23,6 +27,7 @@ const App = () => {
           const characterData = await res.json()
           setNextPage(characterData.next)
           setPrevPage(characterData.previous)
+          //setSearchTerm(url)
           const additionalData = await getAdditionalData(characterData.results)
           setCharacterData(additionalData)
           setIsLoading(false)
@@ -34,14 +39,13 @@ const App = () => {
       character.homeworld = await fetch(character.homeworld).then(async (res) => {
         const response = await res.json()
         return response.name
-      })
-    
-      if(character.species.length === 0){
-        character.species = "Human"
+      })   
+       if(character.species.length === 0){
+         character.species = "Human"
       }else{ 
-       character.species = await fetch(character.species).then(async (res) => {
-        const retrieve = await res.json()
-        return retrieve.name
+        character.species = await fetch(character.species).then(async (res) => {
+         const retrieve = await res.json()
+         return retrieve.name
       })     
     } 
   } 
@@ -56,7 +60,7 @@ const App = () => {
       <div>
         <br/><br/>
         <SearchBar 
-        getQuery={(q) => setQuery(q)}/>
+        characterData={characterData} />
         <br/><br/>
       </div>
       <main>
@@ -76,3 +80,5 @@ const App = () => {
 }
 
 export default App;
+
+{/*getQuery={(q) => setQuery(q)*/}
