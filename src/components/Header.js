@@ -2,7 +2,9 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <header>Star Wars Characters</header>
+    <header>
+      Star Wars Characters
+    </header>
   )
 }
 

@@ -6,13 +6,16 @@ import React, {useState} from 'react'
 
   return(
     <main>
+      <section className='search--container'>
       <input 
         type='text'
         className='search--bar'
-        placeholder='Search'
+        placeholder='Search Star'
         onChange={(e) => setSearchTerm(e.target.value)} 
       />
-    <table>
+      </section>
+      <br></br><br></br><br></br><br></br>
+    <table className='table'>
       <thead>
         <tr>
           <th>Name</th>
@@ -44,6 +47,7 @@ import React, {useState} from 'react'
     })}
       </tbody> 
     </table>
+    <br></br><br></br><br></br>
     </main>
   )
 }

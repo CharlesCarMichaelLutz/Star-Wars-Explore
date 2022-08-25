@@ -50,6 +50,7 @@ const App = () => {
     isLoading ? <h1>Loading...</h1> :
     <div>
         <Header />
+        <br></br><br></br>
         <Table 
         characterData={characterData}
         isLoading={isLoading}/> 

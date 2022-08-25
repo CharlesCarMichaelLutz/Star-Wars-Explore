@@ -1,15 +1,18 @@
 header {
-  padding: 500 px;
+  padding: 50 px;
   text-align: center;
-  background: black;
+  background: navy;
   color: white;
-  font-size: 30px;
+  font-size: 45px;
+  height: 50px;
 }
 
-.search {
+.search--bar {
+  background-color: lightgrey;
   text-align: center;
   display:flex;
   left:42.5%;
+  width: 350px;
 }
 
 table {
@@ -24,23 +27,21 @@ th, td {
   padding: 10px;
 }
 
+thead {
+  background-color: navy;
+  color:white;
+}
+
 .pagination {
   position:fixed;
   left:42.5%;
 }
 
-
-.form-control {
-  text-align: center;
-  position: fixed;
-  display:flex;
-  width:25%;
-  height:2.5%;
-}
-
-.character-form {
+.search--container {
   position: fixed;
   text-align: center;
   display:flex;
-  left:37.5%;
+  left:40.5%;
+  height: 40px;
 }
+
