@@ -25,13 +25,3 @@ const Pagination = ({totalPages, previous, next, getCharacters}) => {
    )
  }
  export default Pagination 
- 
-/* 
-
-Having trouble getting exactly 9 page buttons to render when: 
-   Math.ceil(totalPages)   //hardcoded to 9 currently  
-         is entered as the second condition in the for loop 
-         10 pages
-         It may have to do with characterData only receiving 10 objects at a  time, and 
-         it's not able to see how many total object characters are coming back from the API 
- */
