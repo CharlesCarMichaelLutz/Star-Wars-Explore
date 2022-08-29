@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
- const Table = ({characterData, isLoading}) => {
+ const Table = ({characterData}) => {
 
   const [searchTerm, setSearchTerm] = useState('')
 

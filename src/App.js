@@ -3,6 +3,7 @@ import './index.css'
 import  Table from './components/Table';
 import  Pagination from './components/Pagination';
 import  Header from './components/Header';
+import  Spinner from './img/spinner.gif';
 
 const App = () => {
   
@@ -47,7 +48,10 @@ const App = () => {
   }
 
   return (
-    isLoading ? <h1>Loading...</h1> :
+    isLoading ? <img 
+    src={Spinner} 
+    style={{width: '200px', margin: 'auto', display: 'block'}}
+    alt='Loading'/> :
     <div>
         <Header />
         <br></br><br></br>
@@ -55,7 +59,6 @@ const App = () => {
         characterData={characterData}
         isLoading={isLoading}/> 
         <Pagination 
-        //totalPages={characterData.length}
         previous={prevPage}
         next={nextPage}
         getCharacters={getCharacters}

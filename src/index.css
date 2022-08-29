@@ -7,6 +7,10 @@ header {
   height: 50px;
 }
 
+body {
+  background-color: black;
+}
+
 .search--bar {
   background-color: lightgrey;
   text-align: center;
@@ -18,12 +22,13 @@ header {
 table {
   border-collapse: separate;
   border-spacing: 0 15px;
+  color: lightgrey;
 }
 
 th, td {
   width: 300px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid blue;
   padding: 10px;
 }
 

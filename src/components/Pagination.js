@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Pagination = ({totalPages, previous, next, getCharacters}) => {
+const Pagination = ({previous, next, getCharacters}) => {
   
    const pageNumbers = []
 
