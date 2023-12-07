@@ -1,27 +1,26 @@
-import React from 'react'
+import React from "react";
+import ReactPaginate from "react-paginate";
 
-const Pagination = ({previous, next, getCharacters}) => {
-  
-   const pageNumbers = []
+const Pagination = ({
+  characterData,
+  setPageNumber,
+  searchTerm,
+  charactersPerPage,
+}) => {
+  function changePage({ selected }) {
+    setPageNumber(selected);
+  }
 
-   for (let i = 1; i <= 9 ; i++) {
-      pageNumbers.push((
-            <button
-               key={i}
-               className='page--numbers'
-               onClick={(e) => getCharacters(e.target.value)}
-               value={`https://swapi.dev/api/people/?page=${i}`}
-               >   
-                  {i}
-            </button>   
-      ))
-    }
-   return(
-   <nav className='pagination'>       
-      <button onClick={() => getCharacters(previous === null ? previous + 1 : previous)}>Previous</button>
-       {pageNumbers}
-       <button onClick={() => getCharacters(next === null ? next - 1 : next)}>Next</button>
-    </nav>  
-   )
- }
- export default Pagination 
+  if (characterData.length !== 0) {
+    const pageCount = Math.ceil(characterData.length / charactersPerPage);
+
+    return (
+      <ReactPaginate
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={`button-container`}
+      />
+    );
+  }
+};
+export default Pagination;

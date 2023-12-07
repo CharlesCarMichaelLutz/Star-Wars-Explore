@@ -1,69 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import './index.css'
-import  Table from './components/Table';
-import  Pagination from './components/Pagination';
-import  Header from './components/Header';
-import  Spinner from './img/spinner.gif';
+import React, { useState, useEffect } from "react";
+import "./index.css";
+import Table from "./components/Table";
+import Header from "./components/Header";
+import axios from "axios";
 
 const App = () => {
-  
-  const star_wars_API = 'https://swapi.dev/api/people'
-  const [characterData, setCharacterData] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [nextPage, setNextPage] = useState()
-  const [prevPage, setPrevPage] = useState()
-  
-  useEffect(() => { 
-    getCharacters(star_wars_API) 
-  }, [])
+  const [characterData, setCharacterData] = useState([]);
 
-    const getCharacters = async (url) => {      
-      await fetch(url)
-        .then(async (res) =>  {
-          const characterData = await res.json()
-          setNextPage(characterData.next)
-          setPrevPage(characterData.previous)
-          const additionalData = await getAdditionalData(characterData.results)
-          setCharacterData(additionalData)
-          setIsLoading(false)
-        })   
+  useEffect(() => {
+    getCharacters();
+  });
+
+  async function getCharacters() {
+    const characterPages = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const speciesPages = [1, 2, 3, 4];
+    const planetPages = [1, 2, 3, 4, 5, 6];
+
+    const characters = (
+      await Promise.all(
+        characterPages.map(async (page) => {
+          const response = await axios.get(
+            `https://swapi.py4e.com/api/people/?page=${page}`
+          );
+          return response.data.results;
+        })
+      )
+    ).flat();
+
+    let tempSpecies = (
+      await Promise.all(
+        speciesPages.map(async (page) => {
+          const response = await axios.get(
+            `https://swapi.py4e.com/api/species/?page=${page}`
+          );
+          return response.data.results;
+        })
+      )
+    ).flat();
+
+    let tempPlanets = (
+      await Promise.all(
+        planetPages.map(async (page) => {
+          const response = await axios.get(
+            `https://swapi.py4e.com/api/planets/?page=${page}`
+          );
+          return response.data.results;
+        })
+      )
+    ).flat();
+
+    tempSpecies = arrayToObject(tempSpecies);
+    tempPlanets = arrayToObject(tempPlanets);
+
+    for (const char of characters) {
+      char.homeworld = tempPlanets[char.homeworld];
+      char.species =
+        char.species.length === 0 ? "Human" : tempSpecies[char.species[0]];
     }
-  
-  async function getAdditionalData(characters) {
-    for(const character of characters) {
-      character.homeworld = await fetch(character.homeworld).then(async (res) => {
-        const response = await res.json()
-        return response.name
-      })   
-       if(character.species.length === 0){
-         character.species = "Human"
-      }else{ 
-        character.species = await fetch(character.species).then(async (res) => {
-         const retrieve = await res.json()
-         return retrieve.name
-      })     
-    } 
-  } 
-    return characters
+
+    setCharacterData(characters);
+  }
+
+  function arrayToObject(array) {
+    let obj = {};
+    for (let item of array) {
+      obj[item["url"]] = item["name"];
+    }
+    return obj;
   }
 
   return (
-    isLoading ? <img 
-    src={Spinner} 
-    style={{width: '200px', margin: 'auto', display: 'block'}}
-    alt='Loading'/> :
     <div>
-        <Header />
-        <br></br><br></br>
-        <Table 
-        characterData={characterData}
-        isLoading={isLoading}/> 
-        <Pagination 
-        previous={prevPage}
-        next={nextPage}
-        getCharacters={getCharacters}
-        /> 
-    </div> 
-  )
-}
+      <Header />
+      <Table characterData={characterData} />
+    </div>
+  );
+};
 export default App;
