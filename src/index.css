@@ -53,10 +53,21 @@ thead {
   height: 40px;
 }
 
-.button-container {
+/* .button-container {
   display: flex;
   justify-content: space-between;
   color: yellow;
   list-style-type: none;
+  margin-top: 20px;
+} */
+
+.button-container {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 2px;
+  cursor: pointer;
+  color: yellow;
   margin-top: 20px;
 }

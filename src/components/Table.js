@@ -5,8 +5,15 @@ const Table = ({ characterData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const charactersPerPage = 10;
-  const charactersViewed = pageNumber * charactersPerPage;
 
+  const filterCharacters = characterData.filter((char) =>
+    char.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const charactersRendered = filterCharacters.slice(
+    pageNumber * charactersPerPage,
+    (pageNumber + 1) * charactersPerPage
+  );
   return (
     <main>
       <section className="search--container">
@@ -14,13 +21,13 @@ const Table = ({ characterData }) => {
           type="text"
           className="search--bar"
           placeholder="Search Star"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setPageNumber(0);
+          }}
         />
       </section>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <table className="table">
         <thead>
           <tr>
@@ -33,36 +40,21 @@ const Table = ({ characterData }) => {
           </tr>
         </thead>
         <tbody>
-          {characterData
-            .filter((char) => {
-              if (searchTerm === "") {
-                return char;
-              } else if (
-                char.name.toLowerCase().includes(searchTerm.toLowerCase())
-              ) {
-                return char;
-              }
-            })
-            .slice(charactersViewed, charactersViewed + charactersPerPage)
-            .map((char) => {
-              return (
-                <tr key={char.name}>
-                  <td>{char.name}</td>
-                  <td>{char.birth_year}</td>
-                  <td>{char.height}</td>
-                  <td>{char.mass}</td>
-                  <td>{char.homeworld}</td>
-                  <td>{char.species}</td>
-                </tr>
-              );
-            })}
+          {charactersRendered.map((char) => (
+            <tr key={char.name}>
+              <td>{char.name}</td>
+              <td>{char.birth_year}</td>
+              <td>{char.height}</td>
+              <td>{char.mass}</td>
+              <td>{char.homeworld}</td>
+              <td>{char.species}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination
-        searchTerm={searchTerm}
         setPageNumber={setPageNumber}
-        characterData={characterData}
-        charactersPerPage={charactersPerPage}
+        pageCount={Math.ceil(filterCharacters.length / charactersPerPage)}
       />
     </main>
   );
