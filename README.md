@@ -9,8 +9,7 @@ A really cool Star Wars search website built entirely in HTML, CSS, and React JS
 
 ---
 
-![starwars](https://user-images.githubusercontent.com/103493003/187103386-dd37478d-d4cb-499e-b398-7b1c939fb82c.JPG) 
-
+![swapi updated](https://github.com/Charles-CarM/Star-Wars-Explore/assets/103493003/7c6eb14f-2160-46e8-8a34-d1b401f1f42d)
 
 
 ## Summary
