@@ -20,4 +20,4 @@ In the Star Wars application I got my hands dirty working with a REST API. Getti
 
 ### Author
 
-- **Charles Lutz** - _Full-Stack Software Developer_ - [Personal Website](https://master--resplendent-cocada-4ee40d.netlify.app/) | [LinkedIn](https://www.linkedin.com/in/CharlesCarMichaelLutz)
+- **Charles Lutz** - _Full-Stack Software Developer_ - [Personal Website](https://charlescarmichaellutz.github.io/) | [LinkedIn](https://www.linkedin.com/in/CharlesCarMichaelLutz)
